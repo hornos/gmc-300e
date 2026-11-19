@@ -24,6 +24,9 @@
 .idea/
 .vscode/
 
+# Rust build output (rust-controller branch)
+rust/target/
+
 # Helper tooling (if you add Python analysis scripts)
 __pycache__/
 *.py[cod]

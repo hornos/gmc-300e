@@ -1,0 +1,12 @@
+[package]
+name = "gmc300e-rs"
+version = "1.0.0"
+edition = "2021"
+description = "Pure-Rust controller for GQ GMC-300E / GMC-300Re Geiger counters"
+license = "MIT"
+
+[[bin]]
+name = "gmc300e"
+path = "src/main.rs"
+
+[dependencies]
