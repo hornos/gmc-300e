@@ -25,6 +25,9 @@ function parseCsvLine(line) {
   var displayValue = numericText(parts[7])
   if (displayValue === "") return null
 
+  var displayPrecise = numericText(parts[8])
+  if (displayPrecise === "") return null
+
   var level = cleanText(parts[9], 16).toLowerCase()
   if (level !== "green" && level !== "yellow" && level !== "red") return null
 
@@ -37,7 +40,7 @@ function parseCsvLine(line) {
     deviceCpm: numericText(parts[5]),
     displayUnit: cleanText(parts[6], 8),
     displayValue: displayValue,
-    displayPrecise: numericText(parts[8]),
+    displayPrecise: displayPrecise,
     level: level,
     levelLabel: cleanText(parts[10], 64)
   }

@@ -11,6 +11,7 @@
     {
       "time": "19:00:04",
       "display_value": "0.01",
+      "display_precise": "0.010",
       "display_unit": "mR/h",
       "level": "green",
       "level_label": "NORMAL[<1µSv/h]"
@@ -18,6 +19,7 @@
     {
       "time": "19:00:05",
       "display_value": "1.20",
+      "display_precise": "1.204",
       "display_unit": "mR/h",
       "level": "yellow",
       "level_label": "CAUTION[>=1µSv/h]"
@@ -25,6 +27,7 @@
     {
       "time": "19:00:06",
       "display_value": "12.50",
+      "display_precise": "12.503",
       "display_unit": "mR/h",
       "level": "red",
       "level_label": "EVACUATE[>=10µSv/h]"

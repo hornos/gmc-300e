@@ -7,9 +7,10 @@ Live Geiger counter reading from a GMC-300E/300Re on the Omarchy bar
 Kinds: service, bar-widget
 
 A hosted service opens the serial port once and keeps one Rust controller
-running for every bar instance. The bar item shows the controller's LCD
-`display_value` in the device's own unit, coloured green, yellow or red from the
-same level the controller reports. No reading is recomputed in QML.
+running for every bar instance. The bar item shows the controller's
+`display_precise` value with three decimal places in the device's own unit,
+coloured green, yellow or red from the same level the controller reports. No
+reading is recomputed in QML.
 
 ## Requirements
 
@@ -59,8 +60,10 @@ Other inline settings:
 
 - The service runs `gmc300e --csv live`, which streams:
   `epoch,time,cps,cumulative,avg_cpm,device_cpm,display_unit,display_value,display_precise,level,level_label`.
-- `display_value` is printed verbatim. `level` selects the colour:
-  `green` `<1 µSv/h`, `yellow` `>=1 µSv/h`, `red` `>=10 µSv/h`.
+- `display_precise` is printed verbatim with three decimals; `display_value`
+  is the controller's two-decimal LCD step and is not used for the bar label.
+  `level` selects the colour: `green` `<1 µSv/h`, `yellow` `>=1 µSv/h`,
+  `red` `>=10 µSv/h`.
 - Setting the Quickshell `Process.running` to `false` sends SIGTERM. The Rust
   controller handles it, sends `<HEARTBEAT0>>` and closes the port cleanly.
 - If the controller exits unexpectedly, the service restarts it with a bounded

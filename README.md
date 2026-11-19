@@ -255,8 +255,9 @@ binary is a separate alternative and is not part of the skill.
 ## Omarchy bar plugin
 
 [`omarchy-plugin/`](omarchy-plugin/) is an Omarchy 4 Quattro plugin that shows
-the controller's LCD `display_value` on the right side of the bar, coloured
-green/yellow/red from the controller's reported level. A hosted service owns
+the controller's `display_precise` value with three decimals on the right side
+of the bar, coloured green/yellow/red from the controller's reported level. A
+hosted service owns
 the single `gmc300e --csv live` process and its heartbeat; the bar widget only
 reads the parsed value.
 

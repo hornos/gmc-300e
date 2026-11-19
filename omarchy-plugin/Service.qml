@@ -89,8 +89,9 @@ Item {
     if (text !== "") root.lastError = text
   }
 
-  // Keep the value exactly as the controller printed it. Level colouring and
-  // the µSv/h cut-offs live in the Rust binary, including env overrides.
+  // Show the controller's three-decimal `display_precise` exactly as printed.
+  // Level colouring and the µSv/h cut-offs live in the Rust binary, including
+  // env overrides.
   function consumeLine(line) {
     var reading = Model.parseCsvLine(line)
     if (!reading) {
@@ -103,7 +104,7 @@ Item {
       root.restartDelayMs = 1000
 
     root.samples += 1
-    root.lastValue = reading.displayValue
+    root.lastValue = reading.displayPrecise
     root.lastUnit = reading.displayUnit
     root.lastLevel = reading.level
     root.lastLevelLabel = reading.levelLabel
