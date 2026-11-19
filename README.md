@@ -5,8 +5,9 @@
 *GQ GMC-300E in the field. Photo by Enno Lenze, CC BY 2.0 — see [CREDITS.md](CREDITS.md).*
 
 This directory contains `gmc300e.sh`, a pure-bash controller for the GQ
-GMC-300E / GMC-300Re Geiger-Müller counter connected over USB. It also documents
-the OpenCode `gmc-300e` skill that bundles the same controller.
+GMC-300E / GMC-300Re Geiger-Müller counter connected over USB. It also includes
+a dependency-free Rust port in [`rust/`](rust/) and documents the OpenCode
+`gmc-300e` skill that bundles the bash controller.
 
 The counter used here identifies as **GMC-300Re 4.70** (serial
 `f7f4c55904d10c`). Its normal background is roughly **10–25 CPM**, and battery
@@ -171,17 +172,84 @@ attribution if you redistribute them. See [`CREDITS.md`](CREDITS.md).
 ├── CREDITS.md            # third-party sources and licences
 ├── docs/                 # doc index; GQ manuals/protocol download here, gitignored
 ├── assets/               # device photographs
+├── rust/                 # dependency-free Rust port (binary: gmc300e)
 ├── skill/                # installable OpenCode skill
 └── scripts/              # asset download and skill sync helpers
 ```
 
-## Rust port (branch `rust-controller`)
+## The Rust controller
 
-A dependency-free Rust implementation of the same controller lives in
-[`rust/`](rust/) on the `rust-controller` branch. It uses direct POSIX serial
-calls instead of `stty`/`od`/`awk`, keeps every command and output format, and
-has not been pushed to GitHub. See [`rust/README.md`](rust/README.md) for
-build instructions and the verification performed against the device.
+[`rust/`](rust/) contains a dependency-free Rust port of `gmc300e.sh`. It uses
+direct POSIX serial calls (`termios`/`poll`) instead of `stty`, `od` and `awk`,
+but implements the same commands, output formats, colour levels, environment
+variables and `--yes` safety guards. It builds without downloading any crates.
+See [`rust/README.md`](rust/README.md) for implementation notes and the
+device verification log.
+
+### Requirements
+
+- Linux on glibc (the small libc bindings target Linux).
+- A Rust toolchain: `rustc` and `cargo` (e.g. from <https://rustup.rs> or your
+  distribution's `rust` package). No crates.io dependencies are needed.
+
+### Build
+
+```sh
+cd ~/gmc-300e/rust
+cargo build --release          # binary: rust/target/release/gmc300e
+cargo test --release           # 5 conversion/level/unit tests
+```
+
+### Install
+
+Copy the release binary somewhere on your `PATH`:
+
+```sh
+cd ~/gmc-300e/rust
+cargo build --release
+install -Dm755 target/release/gmc300e ~/.local/bin/gmc300e
+```
+
+Make sure `~/.local/bin` is on your `PATH`. Alternatively let Cargo install it:
+
+```sh
+cd ~/gmc-300e/rust
+cargo install --path . --root ~/.local   # installs ~/.local/bin/gmc300e
+```
+
+The binary is named `gmc300e`, so it does not clash with `gmc300e.sh`. To use a
+different name, copy it manually:
+
+```sh
+install -Dm755 ~/gmc-300e/rust/target/release/gmc300e ~/.local/bin/gmc300e-rs
+```
+
+### Run
+
+```sh
+gmc300e --help                       # full command list
+gmc300e status                       # one-shot summary
+gmc300e displayvalue                 # converted value in the LCD's unit
+gmc300e live 60                      # track for 60 seconds, then stop heartbeat
+gmc300e --csv live 3600 > hour.csv   # machine-readable log
+gmc300e synctime                     # set the counter's clock from this host
+gmc300e raw '<GETVER>>'              # any protocol command, hex + ASCII
+```
+
+It accepts the same global options as the script — `-p/--port`, `-b/--baud`,
+`-v/--verbose`, `--csv`, `--color`, `--no-color`, `--yes` — and the same
+environment variables (`GMC_PORT`, `GMC_BAUD`, `GMC_VERBOSE`, `GMC_COLOR`,
+`GMC_SAFE_MAX_USV`, `GMC_DANGER_MIN_USV`). Just like the bash controller it
+re-executes through `newgrp uucp` when your session cannot write to the
+root-owned serial node.
+
+`live` handles Ctrl-C/SIGTERM with a signal handler and always sends
+`<HEARTBEAT0>>` before exiting. After a `SIGKILL`, clear it with
+`gmc300e raw '<HEARTBEAT0>>'`.
+
+The OpenCode [`skill/`](skill/) still bundles the **bash** controller; use
+`./scripts/sync-skill.sh` to keep that copy in sync with `gmc300e.sh`. The Rust
+binary is a separate alternative and is not part of the skill.
 
 ## Protocol notes
 
