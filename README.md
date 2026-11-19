@@ -132,16 +132,17 @@ by:
 
 ## Documentation and assets
 
-Offline reference material is included so the project is usable without a
-network connection:
+The Creative Commons photos are committed. The GQ manuals and protocol are
+**downloaded on demand and gitignored**, because they are copyrighted by GQ
+Electronics LLC:
 
 ```text
 docs/
-├── README.md                              # index of offline docs
-├── manual/
+├── README.md                              # index of reference docs
+├── manual/                                # local only, not committed
 │   ├── GMC-300E-Plus-User-Guide.pdf       # manufacturer guide, Rev 2.13
 │   └── GMC-Quick-Start-Guide.pdf          # GQ GMC series quick start
-└── protocol/GQ-RFC1201.txt                # official serial protocol spec
+└── protocol/GQ-RFC1201.txt                # official serial protocol spec (local only)
 assets/
 ├── gmc-300e-in-use.jpg                    # GMC-300E photo (CC BY 2.0)
 └── gmc-300s-white.png                     # sibling GMC-300S product photo (CC BY-SA 4.0)
@@ -155,10 +156,10 @@ it. [`CREDITS.md`](CREDITS.md) records upstream URLs, authors and licences:
 ./scripts/fetch-assets.sh --check  # verify local files only
 ```
 
-The downloaded manual, quick-start guide and protocol text are third-party
-GQ Electronics documents, and the photos are Creative Commons licensed; none of
-them are covered by this repository's MIT licence. Keep the credits if you
-redistribute them.
+The downloaded manual, quick-start guide and protocol text are copyrighted
+GQ Electronics documents and are **not committed** — `.gitignore` keeps them
+out of Git. The committed photos are Creative Commons licensed; keep their
+attribution if you redistribute them. See [`CREDITS.md`](CREDITS.md).
 
 ## Repository layout
 
@@ -168,7 +169,7 @@ redistribute them.
 ├── README.md             # this file
 ├── LICENSE               # MIT licence for the original code/docs
 ├── CREDITS.md            # third-party sources and licences
-├── docs/                 # offline manuals and protocol
+├── docs/                 # doc index; GQ manuals/protocol download here, gitignored
 ├── assets/               # device photographs
 ├── skill/                # installable OpenCode skill
 └── scripts/              # asset download and skill sync helpers
@@ -224,8 +225,8 @@ Commands noted as unsupported or unhelpful on this model: `GETTEMP` returns
 `00 00 00 aa`, and `GETGYRO` returns meaningless bytes. Wi-Fi/server commands
 from RFC1801 are for GMC-500/600+ models.
 
-The official protocol document is included at
-[`docs/protocol/GQ-RFC1201.txt`](docs/protocol/GQ-RFC1201.txt), but treat the
+The official protocol document can be fetched locally to
+`docs/protocol/GQ-RFC1201.txt` with `./scripts/fetch-assets.sh`, but treat the
 observations in [`skill/references/protocol.md`](skill/references/protocol.md)
 as authoritative for this specific firmware — notably the 115200 baud figure
 in the spec does not apply to this unit, which uses 57600.
@@ -233,8 +234,9 @@ in the spec does not apply to this unit, which uses 57600.
 ## Licence
 
 The original code and documentation here are MIT licensed; see [`LICENSE`](LICENSE).
-Third-party manuals and photographs under `docs/` and `assets/` keep their own
-licences as detailed in [`CREDITS.md`](CREDITS.md).
+The copyrighted GQ manuals and protocol are not part of the repository; the
+committed Creative Commons photographs keep their own licences as detailed in
+[`CREDITS.md`](CREDITS.md).
 
 This project is an independent, unofficial controller. GQ Electronics is not
 affiliated with it. The level labels are conservative logging aids, not

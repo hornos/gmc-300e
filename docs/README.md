@@ -1,9 +1,11 @@
-# Offline documentation
+# Reference documentation
 
-This folder holds freely available reference material for the GQ GMC-300E
-family, so the project is useful without a network connection.
+This folder is where `scripts/fetch-assets.sh` places the freely downloadable
+GQ reference documents. They are **not committed** to this repository because
+they are copyrighted by GQ Electronics LLC; the paths are listed in
+`../.gitignore`. Run the fetch script after cloning if you want local copies.
 
-| Path | What it is |
+| Path (local only) | What it is |
 | --- | --- |
 | `manual/GMC-300E-Plus-User-Guide.pdf` | Manufacturer user guide, Rev 2.13 (June 2022). Covers the GMC-300E Plus / GMC-300S family, which includes the tested `GMC-300Re 4.70`. |
 | `manual/GMC-Quick-Start-Guide.pdf` | Short GQ GMC series quick-start guide, V1.9. |
@@ -18,10 +20,11 @@ licence.
 From the repository root:
 
 ```sh
-./scripts/fetch-assets.sh          # download again and verify checksums
-./scripts/fetch-assets.sh --check  # only verify what is already present
+./scripts/fetch-assets.sh          # download all files and verify checksums
+./scripts/fetch-assets.sh --check  # verify the files that are present locally
 ```
 
-`scripts/checksums.sha256` pins the exact bytes that were downloaded, so a
-changed upstream file is noticed. If an upstream document is updated, edit the
-URL/checksums deliberately rather than blindly overwriting.
+`scripts/checksums.sha256` pins the exact bytes expected from upstream, so a
+changed upstream file is noticed. `--check` reports the uncommitted GQ
+documents as skipped when they are not present. If an upstream document is
+updated, edit the URL/checksums deliberately rather than blindly overwriting.

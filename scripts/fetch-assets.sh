@@ -9,7 +9,19 @@ SUMS="$ROOT/scripts/checksums.sha256"
 case ${1:-} in
     --check)
         cd "$ROOT"
-        sha256sum --check "$SUMS"
+        while read -r expected path; do
+            [[ -z ${path:-} ]] && continue
+            if [[ ! -f "$path" ]]; then
+                printf 'SKIP (not committed; run without --check): %s\n' "$path"
+                continue
+            fi
+            if printf '%s  %s\n' "$expected" "$path" | sha256sum --check --status; then
+                printf 'OK: %s\n' "$path"
+            else
+                printf 'FAILED: %s\n' "$path" >&2
+                exit 1
+            fi
+        done < "$SUMS"
         exit 0
         ;;
     '') ;;

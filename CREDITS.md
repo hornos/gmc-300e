@@ -4,17 +4,21 @@ The controller (`gmc300e.sh`), the OpenCode skill files under `skill/`, and the
 original documentation in this repository are licensed under the MIT License
 (see `LICENSE`).
 
-The downloaded documents and photographs below are **third-party material**
-included for offline reference. They are **not** covered by this repository's
-MIT License; all rights remain with their respective owners. Keep these
-notices if you redistribute the repository. "Free download" is not the same as
-"free to redistribute" — if you need a strictly redistributable-only
-repository, delete these files and use `scripts/fetch-assets.sh` to obtain them
-from their original hosts yourself.
+The material below is **third-party** and is **not** covered by this
+repository's MIT License; all rights remain with their respective owners.
+
+- The GQ manuals and protocol are copyrighted by GQ Electronics LLC. They are
+  **deliberately not committed** to this repository (see `.gitignore`).
+  `scripts/fetch-assets.sh` downloads them from the manufacturer's site when
+  you want local copies. "Free download" is not the same as "free to
+  redistribute".
+- The photographs are Creative Commons licensed and **are committed**, with the
+  attribution and licence terms reproduced below. Keep those notices if you
+  redistribute them.
 
 ## Manuals and protocol — GQ Electronics LLC
 
-| Local file | Description | Upstream source |
+| Local file (downloaded, **not committed**) | Description | Upstream source |
 | --- | --- | --- |
 | `docs/manual/GMC-300E-Plus-User-Guide.pdf` | *GQ GMC-300E Plus / GMC-300S Geiger Counter User Guide*, Revision 2.13, June 2022 (24 pages) | <https://www.gqelectronicsllc.com/GMC_300E_Plus_User_Guide.pdf> |
 | `docs/manual/GMC-Quick-Start-Guide.pdf` | *GQ GMC Series Geiger Counter Quick Start Guide*, V1.9 (6 pages) | <https://www.gqelectronicsllc.com/download/GMCQuickStartGuide.pdf> |
@@ -23,7 +27,8 @@ from their original hosts yourself.
 Copyright © GQ Electronics LLC. The manual and quick-start guide are published
 by the manufacturer as free downloads. The RFC1201 text carries the notice
 "Distribution of this memo is unlimited" as well as a GQ Electronics copyright
-notice. These files are bundled unchanged; see `scripts/checksums.sha256`.
+notice. `scripts/fetch-assets.sh` fetches them unchanged; their expected bytes
+are pinned in `scripts/checksums.sha256`.
 
 The tested unit reports itself as `GMC-300Re 4.70`, which belongs to the same
 GMC-300E Plus / 300S family as the user guide. Some menu items and electrical

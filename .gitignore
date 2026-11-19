@@ -4,6 +4,12 @@
 *.bin
 *.rbn
 
+# Third-party copyrighted documents (© GQ Electronics LLC).
+# Not committed: fetch locally with scripts/fetch-assets.sh.
+/docs/manual/GMC-300E-Plus-User-Guide.pdf
+/docs/manual/GMC-Quick-Start-Guide.pdf
+/docs/protocol/GQ-RFC1201.txt
+
 # Local scratch / temporary files
 /tmp/
 /tmp-*
