@@ -257,23 +257,28 @@ binary is a separate alternative and is not part of the skill.
 [`omarchy-plugin/`](omarchy-plugin/) is an Omarchy 4 Quattro plugin that shows
 the controller's `display_precise` value with three decimals on the right side
 of the bar, coloured green/yellow/red from the controller's reported level. A
-hosted service owns
-the single `gmc300e --csv live` process and its heartbeat; the bar widget only
-reads the parsed value.
+hosted service owns the single `gmc300e --csv live` process and its heartbeat;
+the bar widget only reads the parsed value. The repository-root
+[`manifest.json`](manifest.json) makes this whole repository installable as a
+standard Omarchy plugin.
 
-Install it with the helper, which builds the Rust binary, installs it as
-`gmc300e`, copies the plugin into Omarchy's plugin directory, enables it and
-reloads the shell:
+Build and install the Rust binary first (see above), then add the plugin from
+GitHub:
+
+```sh
+omarchy plugin add https://github.com/hornos/gmc-300e.git --enable
+```
+
+Add `--yes` for noninteractive installs. For a local checkout, the helper does
+the binary build/install and the plugin enable/reload in one step:
 
 ```sh
 ./scripts/install-omarchy-plugin.sh
 ```
 
-The plugin can also be managed by hand:
+Check it with:
 
 ```sh
-omarchy plugin enable io.github.hornos.gmc-300e right
-omarchy-restart-shell
 omarchy-shell io.github.hornos.gmc-300e status
 ```
 

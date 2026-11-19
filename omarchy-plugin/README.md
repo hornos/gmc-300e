@@ -24,17 +24,25 @@ reading is recomputed in QML.
 
 ## Installation
 
-From the repository root, the helper builds/installs the Rust binary and adds
-the plugin:
+The repository root has its own `manifest.json`, so the whole repository is a
+normal Omarchy plugin. After installing the Rust binary as `gmc300e`, add it
+from GitHub:
+
+```bash
+omarchy plugin add https://github.com/hornos/gmc-300e.git --enable
+```
+
+For noninteractive installs add `--yes`:
+
+```bash
+omarchy plugin add https://github.com/hornos/gmc-300e.git --enable --yes
+```
+
+From a local checkout, the helper builds/installs the Rust binary and enables
+the plugin directory:
 
 ```bash
 ./scripts/install-omarchy-plugin.sh
-```
-
-Or install the plugin directory manually:
-
-```bash
-omarchy plugin add "$PWD/omarchy-plugin" --enable --yes
 ```
 
 The default `binaryPath` is `gmc300e`. To use a binary that is not on `PATH`,
