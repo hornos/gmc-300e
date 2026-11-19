@@ -1,0 +1,12 @@
+* text=auto
+
+*.sh   text eol=lf
+*.md   text eol=lf
+
+# Pinned by checksums.sha256: store the downloaded bytes verbatim.
+docs/protocol/GQ-RFC1201.txt  -text
+
+*.pdf  binary
+*.jpg  binary
+*.png  binary
+*.tif  binary
