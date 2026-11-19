@@ -175,6 +175,14 @@ attribution if you redistribute them. See [`CREDITS.md`](CREDITS.md).
 └── scripts/              # asset download and skill sync helpers
 ```
 
+## Rust port (branch `rust-controller`)
+
+A dependency-free Rust implementation of the same controller lives in
+[`rust/`](rust/) on the `rust-controller` branch. It uses direct POSIX serial
+calls instead of `stty`/`od`/`awk`, keeps every command and output format, and
+has not been pushed to GitHub. See [`rust/README.md`](rust/README.md) for
+build instructions and the verification performed against the device.
+
 ## Protocol notes
 
 The protocol is host-initiated: commands start with `<` and end with `>>`, e.g.
