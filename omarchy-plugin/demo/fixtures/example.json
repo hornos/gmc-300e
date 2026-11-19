@@ -1,0 +1,33 @@
+{
+  "fixture": "io.github.hornos.gmc-300e-live-sample",
+  "source": "rust/target/release/gmc300e --csv live",
+  "settings": {
+    "binaryPath": "gmc300e",
+    "devicePath": "",
+    "safeMaxUsv": "1",
+    "dangerMinUsv": "10"
+  },
+  "rows": [
+    {
+      "time": "19:00:04",
+      "display_value": "0.01",
+      "display_unit": "mR/h",
+      "level": "green",
+      "level_label": "NORMAL[<1µSv/h]"
+    },
+    {
+      "time": "19:00:05",
+      "display_value": "1.20",
+      "display_unit": "mR/h",
+      "level": "yellow",
+      "level_label": "CAUTION[>=1µSv/h]"
+    },
+    {
+      "time": "19:00:06",
+      "display_value": "12.50",
+      "display_unit": "mR/h",
+      "level": "red",
+      "level_label": "EVACUATE[>=10µSv/h]"
+    }
+  ]
+}

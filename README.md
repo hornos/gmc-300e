@@ -173,8 +173,9 @@ attribution if you redistribute them. See [`CREDITS.md`](CREDITS.md).
 ├── docs/                 # doc index; GQ manuals/protocol download here, gitignored
 ├── assets/               # device photographs
 ├── rust/                 # dependency-free Rust port (binary: gmc300e)
+├── omarchy-plugin/       # Omarchy 4 bar widget + shared service
 ├── skill/                # installable OpenCode skill
-└── scripts/              # asset download and skill sync helpers
+└── scripts/              # asset download, skill sync and plugin install helpers
 ```
 
 ## The Rust controller
@@ -250,6 +251,34 @@ root-owned serial node.
 The OpenCode [`skill/`](skill/) still bundles the **bash** controller; use
 `./scripts/sync-skill.sh` to keep that copy in sync with `gmc300e.sh`. The Rust
 binary is a separate alternative and is not part of the skill.
+
+## Omarchy bar plugin
+
+[`omarchy-plugin/`](omarchy-plugin/) is an Omarchy 4 Quattro plugin that shows
+the controller's LCD `display_value` on the right side of the bar, coloured
+green/yellow/red from the controller's reported level. A hosted service owns
+the single `gmc300e --csv live` process and its heartbeat; the bar widget only
+reads the parsed value.
+
+Install it with the helper, which builds the Rust binary, installs it as
+`gmc300e`, copies the plugin into Omarchy's plugin directory, enables it and
+reloads the shell:
+
+```sh
+./scripts/install-omarchy-plugin.sh
+```
+
+The plugin can also be managed by hand:
+
+```sh
+omarchy plugin enable io.github.hornos.gmc-300e right
+omarchy-restart-shell
+omarchy-shell io.github.hornos.gmc-300e status
+```
+
+See [`omarchy-plugin/README.md`](omarchy-plugin/README.md) for settings, IPC and
+removal instructions. Stopping or disabling the plugin sends SIGTERM to the
+Rust process, which clears the hardware heartbeat before exit.
 
 ## Protocol notes
 

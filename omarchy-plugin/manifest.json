@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.hornos.gmc-300e",
+  "name": "GMC-300E Radiation Monitor",
+  "version": "0.1.0",
+  "author": "hornos",
+  "license": "MIT",
+  "description": "Live GMC-300E/300Re reading from the Rust controller on the Omarchy bar",
+  "keywords": [
+    "gmc-300e",
+    "gmc-300re",
+    "geiger",
+    "radiation",
+    "serial",
+    "bar-widget"
+  ],
+  "kinds": [
+    "service",
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "service": "Service.qml",
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "GMC-300E Radiation Monitor",
+    "description": "Live Geiger counter display value with green, yellow and red level colouring",
+    "category": "Hardware",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "binaryPath": "gmc300e",
+      "devicePath": "",
+      "safeMaxUsv": "1",
+      "dangerMinUsv": "10"
+    },
+    "schema": [
+      {
+        "key": "binaryPath",
+        "type": "string",
+        "label": "gmc300e binary",
+        "description": "Path to the Rust controller, or gmc300e to resolve it from PATH.",
+        "defaultValue": "gmc300e"
+      },
+      {
+        "key": "devicePath",
+        "type": "string",
+        "label": "Serial device (optional)",
+        "description": "Sets GMC_PORT. Leave blank for /dev/serial/by-id auto-detection.",
+        "defaultValue": ""
+      },
+      {
+        "key": "safeMaxUsv",
+        "type": "string",
+        "label": "Green/yellow limit (µSv/h)",
+        "description": "Sets GMC_SAFE_MAX_USV. Default: 1.",
+        "defaultValue": "1"
+      },
+      {
+        "key": "dangerMinUsv",
+        "type": "string",
+        "label": "Yellow/red limit (µSv/h)",
+        "description": "Sets GMC_DANGER_MIN_USV. Default: 10.",
+        "defaultValue": "10"
+      }
+    ]
+  }
+}
